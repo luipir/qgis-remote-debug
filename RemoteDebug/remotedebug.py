@@ -30,15 +30,18 @@ import resources_rc
 class RemoteDebug:
 
     def __init__(self, iface):
+        print "__init__"
         # Save reference to the QGIS interface
         self.iface = iface
         # Create the dialog and keep reference
 #        self.dlg = RemoteDebugDialog()
         # initialize plugin directory
         self.plugin_dir = QFileInfo(QgsApplication.qgisUserDbFilePath()).path() + "/python/plugins/remotedebug"
+        print self.plugin_dir
         # initialize locale
         localePath = ""
-        locale = QSettings().value("locale/userLocale").toString()[0:2]
+        locale = QSettings().value("locale/userLocale", type=str)
+        print "locale ",locale
        
         if QFileInfo(self.plugin_dir).exists():
             localePath = self.plugin_dir + "/i18n/remotedebug_" + locale + ".qm"
@@ -52,35 +55,40 @@ class RemoteDebug:
    
 
     def initGui(self):
+        print "initGui"
         # Create action that will start plugin configuration
-        self.action = QAction(QIcon(":/plugins/remotedebug/icon.png"), "Remote Debug", self.iface.mainWindow())
-#        # connect the action to the run method
+        self.action = QAction(QIcon(":icon.png"), "Remote Debug", self.iface.mainWindow())
+        # connect the action to the run method
         QObject.connect(self.action, SIGNAL("triggered()"), self.startDebugging)
-#
-#        # Add toolbar button and menu item
+
+        # Add toolbar button and menu item
         self.iface.addToolBarIcon(self.action)
-#        self.iface.addPluginToMenu(u"&Remote Debug", self.action)
+        self.iface.addPluginToMenu(u"&Remote Debug", self.action)
 
     def unload(self):
+        print "unload"
         # Remove the plugin menu item and icon
-#        self.iface.removePluginMenu(u"&Remote Debug",self.action)
-       self.iface.removeToolBarIcon(self.action)
+        self.iface.removePluginMenu(u"&Remote Debug",self.action)
+        self.iface.removeToolBarIcon(self.action)
 
     def startDebugging(self):
+        print "startDebugging"
         active = False
         #Eric4
-        try:
-            from dbg_client.DebugClient import DebugClient
-            DBG=DebugClient()
-            DBG.startDebugger(host='localhost', filename='', port=42424, exceptions=True, enableTrace=True, redirect=True)
-            active = True
-            self._statusBar().showMessage(u"Eric4 debugging active")
-        except:
-            pass
+#         try:
+#             from dbg_client.DebugClient import DebugClient
+#             DBG=DebugClient()
+#             DBG.startDebugger(host='localhost', filename='', port=42424, exceptions=True, enableTrace=True, redirect=True)
+#             active = True
+#             self._statusBar().showMessage(u"Eric4 debugging active")
+#         except:
+#             pass
         #PyDev (Eclipse)
         try:
             from pysrc import pydevd
+            print "imported"
             pydevd.settrace(port=5678, suspend=False)
+            print "traced"
             active = True
             self._statusBar().showMessage(u"PyDev debugging active")
         except:
@@ -93,4 +101,5 @@ class RemoteDebug:
 
     # run method that performs all the real work
     def run(self):
+            print "run"
             pass

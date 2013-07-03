@@ -10,16 +10,16 @@
 
 [general]
 name=Remote Debug
-qgisMinimumVersion=1.0
+qgisMinimumVersion=2.0
 description=Start Python remote debugger from QGIS plugin
-version=0.1.0
+version=0.1.1
 
 # end of mandatory metadata
 
 # Optional items:
 
 # Uncomment the following line and add your changelog entries:
-# changelog=
+changelog=ported to sip API 2.0
 
 # tags are comma separated with spaces allowed
 tags=
