@@ -25,7 +25,7 @@ def name():
 def description():
     return "Plugin to connect different IDE remote debugger"
 def version():
-    return "0.1.0"
+    return "0.1.1"
 def experimental():
     return True
 def icon():
