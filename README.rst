@@ -8,10 +8,11 @@ QGis: Plugin manual installation outside the QGIS plugin manager
 ----------------------------------------------------------------
 
 follow these steps:
+
  - clone this repositoy in a <path>
  - copy or link <path>/qgis-remote-debug/RemoteDebug in $HOME/.qgis2/python/plugins/remotedebug (!!! lower case !!!)
  - explicitly add $HOME/.qgis2/python/plugins in PYTHONPATH for the qgis session e.g setting in a shell script that launch qgis
- - then follow next steps
+ - then follow reading this document
 
 
 PyDev Debugging (Eclipse)
